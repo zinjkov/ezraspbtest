@@ -7,7 +7,7 @@
 int main()
 {
     LibSerial::SerialStream my_serial_stream;
-    my_serial_stream.Open("/dev/ttyS0");
+    my_serial_stream.Open("/dev/ttyUSB0");
     my_serial_stream.SetBaudRate( LibSerial::SerialStreamBuf::BAUD_115200 );
     int sock;
     struct sockaddr_in addr;
@@ -34,8 +34,9 @@ int main()
     {
         bytes_read = recvfrom(sock, buf, 1024, 0, NULL, NULL);
         buf[bytes_read] = '\0';
-        std::cout << buf << std::endl;
-        my_serial_stream << buf;
+        char ch = buf[0];
+        std::cout << ch << std::endl;
+        my_serial_stream << ch;
     }
 
     return 0;
